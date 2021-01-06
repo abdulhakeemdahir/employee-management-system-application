@@ -1,0 +1,26 @@
+{
+  "name": "Employee-Management-System-Application",
+  "version": "1.0.0",
+  "description": "UW Homework 12",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abdulhakeemdahir/Employee-Management-System-Application.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/abdulhakeemdahir/Employee-Management-System-Application/issues"
+  },
+  "homepage": "https://github.com/abdulhakeemdahir/Employee-Management-System-Application#readme",
+  "dependencies": {
+    "asciiart-logo": "^0.2.6",
+    "console.table": "^0.10.0",
+    "inquirer": "^7.3.3",
+    "mysql": "^2.18.1"
+  }
+}
