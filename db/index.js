@@ -4,23 +4,24 @@ const inquirer = require("inquirer");
 
 const app = {
   viewAll: function () {
-    connection
+  return  connection
       .query(
         `SELECT 
-          employee.id,
-          employee.first_name,
-          employee.last_name,
-          role.title,
-          role.salary,
-          role.department_id,
-          department.name
-          FROM employee
-          JOIN role ON employee.role_id = role.id
-          JOIN department ON department_id = department.id`
+          e.id,
+          e.first_name,
+          e.last_name,
+          r.title AS role,
+          r.salary,
+          d.name AS department,
+          CONCAT(e2.first_name,' ', e2.last_name) AS full_name
+          FROM employee AS e
+          LEFT JOIN role AS r
+          ON e.role_id = r.id
+          LEFT JOIN department AS d
+          ON r.department_id = d.id
+          LEFT JOIN employee AS e2
+          ON e.manager_id = e2.id`
       )
-      .then(resp => {
-        console.table(resp);
-      });
   },
   getRole: function () {
     return connection.query(

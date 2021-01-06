@@ -35,7 +35,9 @@ function selectAction() {
     })
     .then(answer => {
       if (answer.action === "VIEW_ALL") {
-        app.viewAll();
+        app.viewAll().then(resp => {
+          console.table(resp);
+        });
       } else if (answer.action === "VIEW_DEPARTMENTS") {
         inquirer
           .prompt({
@@ -87,44 +89,83 @@ function selectAction() {
             app.addRole(answer);
           });
       } else if (answer.action === "ADD_EMPLOYEES") {
-        const employeeInfo = {};
-        inquirer
-          .prompt({
-            message: "Provide the employees first name",
-            name: "firstName",
-            type: "input",
-          })
-          .then(answer => {
-            employeeInfo.first_name = answer.firstName;
+        // const employeeInfo = {};
+        app.getRole().then(roles => {
+          console.log(roles);
+          app.viewAll().then(managers => {
+            console.log(managers);
+            const roleArr = roles.map(role => {
+              return { name: role.title, value: role.id };
+            });
+            const managerArr = managers.map(manager => {
+              return {
+                name: `${manager.first_name} ${manager.last_name}`,
+                value: manager.id,
+              };
+            });
+            console.log(roleArr);
+            console.log(managerArr);
             inquirer
-              .prompt({
-                message: "Provide the employees last name",
-                name: "lastName",
-                type: "input",
-              })
-              .then(answer => {
-                employeeInfo.last_name = answer.lastName;
-                console.log(employeeInfo);
-                app.getRole().then(res => {
-                  const choiceArr = res;
-                  let choices = [];
-                  for (let i = 0; i < choiceArr.length; i++) {
-                    choices.push(choiceArr[i].title);
-                  }
-                  inquirer
-                    .prompt({
-                      name: "roleId",
-                      type: "list",
-                      message: "Choose a role",
-                      choices: choices,
-                    })
-                    .then(answer => {
-                      employeeInfo.role_id = answer.roleId;
-                      console.log(employeeInfo);
-                    });
-                });
+              .prompt([
+                {
+                  message: "Provide the employees first name",
+                  name: "firstName",
+                  type: "input",
+                },
+                {
+                  message: "Provide the employees last name",
+                  name: "lastName",
+                  type: "input",
+                },
+                {
+                  message: "Provide the employees role",
+                  name: "role",
+                  type: "list",
+                  choices: roleArr,
+                },
+                {
+                  message: "Provide the employees manager",
+                  name: "manager",
+                  type: "list",
+                  choices: managerArr,
+                },
+              ])
+              .then(answers => {
+                console.log(answers);
               });
+            // .then(answer => {
+            //   employeeInfo.first_name = answer.firstName;
+            //   inquirer
+            //     .prompt({
+            //       message: "Provide the employees last name",
+            //       name: "lastName",
+            //       type: "input",
+            //     })
+            //     .then(answer => {
+            //       employeeInfo.last_name = answer.lastName;
+            //       console.log(employeeInfo);
+            //       app.getRole().then(res => {
+            //         const choiceArr = res;
+            //         let choices = [];
+            //         for (let i = 0; i < choiceArr.length; i++) {
+            //           choices.push(choiceArr[i].title);
+            //         }
+            //         inquirer
+            //           .prompt({
+            //             name: "roleId",
+            //             type: "list",
+            //             message: "Choose a role",
+            //             choices: choices,
+            //           })
+            //           .then(answer => {
+            //             employeeInfo.role_id = answer.roleId;
+            //             console.log(employeeInfo);
+            //           });
+            //       });
+            //     });
+            // });
           });
+        });
       } else if (answer.action === "ADD_ROLES") {
         inquirer
           .prompt({
