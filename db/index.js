@@ -39,7 +39,7 @@ const app = {
   },
   viewRole: function (answer) {
     connection
-      .query("SELECT * FROM role WHERE title = ?", answer.name)
+      .query("SELECT * FROM role", answer.name)
       .then(resp => {
         console.table(resp);
       });

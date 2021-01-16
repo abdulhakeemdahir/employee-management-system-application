@@ -49,15 +49,16 @@ function selectAction() {
             app.viewDepartment(answer);
           });
       } else if (answer.action === "VIEW_ROLES") {
-        inquirer
-          .prompt({
-            message: "Provide a role",
-            name: "name",
-            type: "input",
-          })
-          .then(answer => {
-            app.viewRole(answer);
-          });
+        app.viewRole(answer);
+        // inquirer
+        //   .prompt({
+        //     message: "Provide a role",
+        //     name: "name",
+        //     type: "input",
+        //   })
+        //   .then(answer => {
+        //     app.viewRole(answer);
+        //   });
       } else if (answer.action === "VIEW_EMPLOYEES") {
         inquirer
           .prompt({
