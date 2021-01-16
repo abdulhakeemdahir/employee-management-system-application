@@ -39,15 +39,16 @@ function selectAction() {
           console.table(resp);
         });
       } else if (answer.action === "VIEW_DEPARTMENTS") {
-        inquirer
-          .prompt({
-            message: "Provide a department name",
-            name: "name",
-            type: "input",
-          })
-          .then(answer => {
-            app.viewDepartment(answer);
-          });
+        app.viewDepartment(answer);
+        // inquirer
+        //   .prompt({
+        //     message: "Provide a department name",
+        //     name: "name",
+        //     type: "input",
+        //   })
+        //   .then(answer => {
+        //     app.viewDepartment(answer);
+        //   });
       } else if (answer.action === "VIEW_ROLES") {
         app.viewRole(answer);
         // inquirer

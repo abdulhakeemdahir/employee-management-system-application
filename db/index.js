@@ -4,9 +4,8 @@ const inquirer = require("inquirer");
 
 const app = {
   viewAll: function () {
-  return  connection
-      .query(
-        `SELECT 
+    return connection.query(
+      `SELECT 
           e.id,
           e.first_name,
           e.last_name,
@@ -21,7 +20,7 @@ const app = {
           ON r.department_id = d.id
           LEFT JOIN employee AS e2
           ON e.manager_id = e2.id`
-      )
+    );
   },
   getRole: function () {
     return connection.query(
@@ -31,18 +30,14 @@ const app = {
     );
   },
   viewDepartment: function (answer) {
-    connection
-      .query("SELECT * FROM department WHERE name = ?", answer.name)
-      .then(resp => {
-        console.table(resp);
-      });
+    connection.query("SELECT * FROM department", answer.name).then(resp => {
+      console.table(resp);
+    });
   },
   viewRole: function (answer) {
-    connection
-      .query("SELECT * FROM role", answer.name)
-      .then(resp => {
-        console.table(resp);
-      });
+    connection.query("SELECT * FROM role", answer.name).then(resp => {
+      console.table(resp);
+    });
   },
   viewEmployee: function viewEmployee(answer) {
     connection
