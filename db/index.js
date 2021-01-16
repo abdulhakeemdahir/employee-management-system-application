@@ -62,7 +62,7 @@ const app = {
   },
   addEmployee: function (answer) {
     connection
-      .query("INSERT INTO employee SET ? ? ? ?", {
+      .query("INSERT INTO employee SET ? ", {
         first_name: answer.firstName,
         last_name: answer.lastName,
         role_id: answer.role,
