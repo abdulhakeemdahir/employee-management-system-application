@@ -19,7 +19,7 @@ function selectAction() {
         "VIEW_ALL",
         "VIEW_DEPARTMENTS",
         "VIEW_ROLES",
-        "VIEW_EMPLOYEES",
+        "SEARCH_EMPLOYEES",
         "ADD_DEPARTMENTS",
         "ADD_ROLES",
         "ADD_EMPLOYEES",
@@ -60,7 +60,7 @@ function selectAction() {
         //   .then(answer => {
         //     app.viewRole(answer);
         //   });
-      } else if (answer.action === "VIEW_EMPLOYEES") {
+      } else if (answer.action === "SEARCH_EMPLOYEES") {
         inquirer
           .prompt({
             message: "Provide an employees first name",
