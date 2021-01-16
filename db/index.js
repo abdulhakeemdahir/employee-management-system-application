@@ -61,9 +61,16 @@ const app = {
       });
   },
   addEmployee: function (answer) {
-    connection.query("INSERT INTO role WHERE ? ?", answer.name).then(resp => {
-      console.table(resp);
-    });
+    connection
+      .query("INSERT INTO employee SET ? ? ? ?", {
+        first_name: answer.firstName,
+        last_name: answer.lastName,
+        role_id: answer.role,
+        manager_id: answer.manager,
+      })
+      .then(resp => {
+        console.log("Employee Added");
+      });
   },
 };
 // app.getRole().then(choices => choices);

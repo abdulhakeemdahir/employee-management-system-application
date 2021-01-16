@@ -19,10 +19,10 @@ function selectAction() {
         "VIEW_ALL",
         "VIEW_DEPARTMENTS",
         "VIEW_ROLES",
-        "SEARCH_EMPLOYEES",
+        "SEARCH_EMPLOYEE",
         "ADD_DEPARTMENTS",
         "ADD_ROLES",
-        "ADD_EMPLOYEES",
+        "ADD_EMPLOYEE",
         "UPDATE_EMPLOYEE_ROLES",
         "UPDATE_EMPLOYEE_MANAGERS",
         "VIEW_EMPLOYEES_BY_MANAGER",
@@ -60,7 +60,7 @@ function selectAction() {
         //   .then(answer => {
         //     app.viewRole(answer);
         //   });
-      } else if (answer.action === "SEARCH_EMPLOYEES") {
+      } else if (answer.action === "SEARCH_EMPLOYEE") {
         inquirer
           .prompt({
             message: "Provide an employees first name",
@@ -90,12 +90,12 @@ function selectAction() {
           .then(answer => {
             app.addRole(answer);
           });
-      } else if (answer.action === "ADD_EMPLOYEES") {
+      } else if (answer.action === "ADD_EMPLOYEE") {
         // const employeeInfo = {};
         app.getRole().then(roles => {
-          console.log(roles);
+          // console.log(roles);
           app.viewAll().then(managers => {
-            console.log(managers);
+            // console.log(managers);
             const roleArr = roles.map(role => {
               return { name: role.title, value: role.id };
             });
@@ -105,8 +105,8 @@ function selectAction() {
                 value: manager.id,
               };
             });
-            console.log(roleArr);
-            console.log(managerArr);
+            // console.log(roleArr);
+            // console.log(managerArr);
             inquirer
               .prompt([
                 {
@@ -133,7 +133,8 @@ function selectAction() {
                 },
               ])
               .then(answers => {
-                console.log(answers);
+                // console.log(answers);
+                app.addEmployee(answers);
               });
             // .then(answer => {
             //   employeeInfo.first_name = answer.firstName;
