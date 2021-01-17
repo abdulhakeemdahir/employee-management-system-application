@@ -55,9 +55,13 @@ const app = {
   },
   addRole: function (answer) {
     connection
-      .query("SELECT * FROM employee WHERE first_name = ?", answer.name)
+      .query("INSERT INTO employee SET ? ", {
+        title: answer.title,
+        salary: answer.salary,
+        department_id: answer.departmentId,
+      })
       .then(resp => {
-        console.table(resp);
+        console.log("Employee Added");
       });
   },
   addEmployee: function (answer) {
