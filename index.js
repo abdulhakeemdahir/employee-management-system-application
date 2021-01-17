@@ -200,7 +200,7 @@ async function selectAction() {
             inquirer
               .prompt([
                 {
-                  message: "Choose your department",
+                  message: "Choose your department?",
                   name: "departmentId",
                   type: "list",
                   choices: departmentArr,
