@@ -30,14 +30,10 @@ const app = {
     );
   },
   viewDepartment: function (answer) {
-    connection.query("SELECT * FROM department", answer.name).then(resp => {
-      console.table(resp);
-    });
+    return connection.query("SELECT * FROM department");
   },
   viewRole: function (answer) {
-    connection.query("SELECT * FROM role", answer.name).then(resp => {
-      console.table(resp);
-    });
+    return connection.query("SELECT * FROM role");
   },
   viewEmployee: function viewEmployee(answer) {
     connection

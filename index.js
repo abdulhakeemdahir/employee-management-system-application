@@ -9,7 +9,7 @@ function init() {
   selectAction();
 }
 
-function selectAction() {
+async function selectAction() {
   inquirer
     .prompt({
       message: "What would you like to do?",
@@ -40,19 +40,15 @@ function selectAction() {
           goBack();
         });
       } else if (answer.action === "VIEW_DEPARTMENTS") {
-        app.viewDepartment(answer);
-        // inquirer
-        //   .prompt({
-        //     message: "Provide a department name",
-        //     name: "name",
-        //     type: "input",
-        //   })
-        //   .then(answer => {
-        //     app.viewDepartment(answer);
-        //   });
+        app.viewDepartment(answer).then(resp => {
+          console.table(resp);
+          goBack();
+        });
       } else if (answer.action === "VIEW_ROLES") {
-        app.viewRole(answer);
-        goBack();
+        app.viewRole(answer).then(resp => {
+          console.table(resp);
+          goBack();
+        });
       } else if (answer.action === "SEARCH_EMPLOYEE") {
         inquirer
           .prompt({
@@ -103,6 +99,7 @@ function selectAction() {
             ])
             .then(answer => {
               app.addRole(answer);
+              goBack();
             });
         });
       } else if (answer.action === "ADD_EMPLOYEE") {
@@ -144,6 +141,7 @@ function selectAction() {
               ])
               .then(answers => {
                 app.addEmployee(answers);
+                goBack();
               });
           });
         });
@@ -156,6 +154,7 @@ function selectAction() {
           })
           .then(answer => {
             app.addRole(answer);
+            goBack();
           });
       }
     });
