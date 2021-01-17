@@ -29,7 +29,7 @@ const app = {
           FROM role`
     );
   },
-  viewDepartment: function (answer) {
+  viewDepartment: function () {
     return connection.query("SELECT * FROM department");
   },
   viewRole: function (answer) {
@@ -72,6 +72,34 @@ const app = {
       })
       .then(resp => {
         console.log("Employee Added");
+      });
+  },
+  updateRole: function (answer) {
+    connection
+      .query("UPDATE role SET ? WHERE ?", [
+        {
+          title: answer.title,
+          salary: answer.salary,
+          department_id: answer.departmentId,
+        },
+        { id: answer.roleId },
+      ])
+      .then(resp => {
+        console.table(resp);
+        console.log("Role Updated");
+      });
+  },
+  updateDepartment: function (answer) {
+    connection
+      .query("UPDATE role SET ? WHERE ?", [
+        {
+          name: answer.name,
+        },
+        { id: answer.departmentId },
+      ])
+      .then(resp => {
+        console.table(resp);
+        console.log("Department Updated");
       });
   },
 };

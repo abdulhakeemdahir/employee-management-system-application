@@ -4,11 +4,6 @@ const logo = require("asciiart-logo");
 const config = require("./package.json");
 const { viewRole } = require("./db/orm.js");
 
-function init() {
-  console.log(logo(config).render());
-  selectAction();
-}
-
 async function selectAction() {
   inquirer
     .prompt({
@@ -23,8 +18,8 @@ async function selectAction() {
         "ADD_DEPARTMENTS",
         "ADD_ROLES",
         "ADD_EMPLOYEE",
-        "UPDATE_EMPLOYEE_ROLES",
-        "UPDATE_EMPLOYEE_MANAGERS",
+        "UPDATE_ROLES",
+        "UPDATE_MANAGERS",
         "VIEW_EMPLOYEES_BY_MANAGER",
         "DELETE_DEPARTMENTS",
         "DELETE_ROLES",
@@ -156,11 +151,83 @@ async function selectAction() {
             app.addRole(answer);
             goBack();
           });
+      } else if (answer.action === "UPDATE_ROLES") {
+        app.getRole().then(roles => {
+          const roleArr = roles.map(role => {
+            return { name: role.title, value: role.id };
+          });
+          app.viewDepartment().then(department => {
+            const departmentArr = department.map(department => {
+              return { name: department.name, value: department.id };
+            });
+            inquirer
+              .prompt([
+                {
+                  message: "Choose your role",
+                  name: "roleId",
+                  type: "list",
+                  choices: roleArr,
+                },
+                {
+                  message: "Update role title",
+                  name: "title",
+                  type: "input",
+                },
+                {
+                  message: "Update Salary",
+                  name: "salary",
+                  type: "input",
+                },
+                {
+                  message: "Choose your department",
+                  name: "departmentId",
+                  type: "list",
+                  choices: departmentArr,
+                },
+              ])
+              .then(answer => {
+                console.log(answer);
+                app.updateRole(answer);
+                goBack();
+              });
+          });
+        });
+      } else if (answer.action === "UPDATE_DEPARTMENTS") {
+          app.viewDepartment().then(department => {
+            const departmentArr = department.map(department => {
+              return { name: department.name, value: department.id };
+            });
+            inquirer
+              .prompt([
+                {
+                  message: "Choose your department",
+                  name: "departmentId",
+                  type: "list",
+                  choices: departmentArr,
+                },
+                {
+                  message: "Update department",
+                  name: "name",
+                  type: "input",
+                }
+              ])
+              .then(answer => {
+                console.log(answer);
+                app.updateDepartment(answer);
+                goBack();
+              });
+          });
+        });
       }
     });
 }
 
 // All functions
+function init() {
+  console.log(logo(config).render());
+  selectAction();
+}
+
 function goBack() {
   inquirer
     .prompt({
