@@ -63,12 +63,15 @@ function selectAction() {
           });
       } else if (answer.action === "ADD_DEPARTMENTS") {
         inquirer
-          .prompt({
-            message: "Add a department",
-            name: "name",
-            type: "input",
-          })
+          .prompt([
+            {
+              message: "Add department",
+              name: "name",
+              type: "input",
+            },
+          ])
           .then(answer => {
+            console.log(answer);
             app.addDepartment(answer);
           });
       } else if (answer.action === "ADD_ROLES") {

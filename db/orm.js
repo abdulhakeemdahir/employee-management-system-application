@@ -48,9 +48,11 @@ const app = {
   },
   addDepartment: function (answer) {
     connection
-      .query("SELECT * FROM employee WHERE first_name = ?", answer.name)
+      .query("INSERT INTO department SET ? ", {
+        name: answer.name,
+      })
       .then(resp => {
-        console.table(resp);
+        console.log("Role Added");
       });
   },
   addRole: function (answer) {
