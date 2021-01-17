@@ -114,11 +114,4 @@ const app = {
       });
   },
 };
-// app.getRole().then(choices => choices);
-// console.log("=======");
-console.log(app.getRole());
-// console.log(choices);
 module.exports = app;
-
-// notes for self
-// connection.query("").then((resp) => {})
