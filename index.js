@@ -37,6 +37,7 @@ function selectAction() {
       if (answer.action === "VIEW_ALL") {
         app.viewAll().then(resp => {
           console.table(resp);
+          goBack();
         });
       } else if (answer.action === "VIEW_DEPARTMENTS") {
         app.viewDepartment(answer);
@@ -51,6 +52,7 @@ function selectAction() {
         //   });
       } else if (answer.action === "VIEW_ROLES") {
         app.viewRole(answer);
+        goBack();
       } else if (answer.action === "SEARCH_EMPLOYEE") {
         inquirer
           .prompt({
@@ -195,6 +197,19 @@ function selectAction() {
             app.addRole(answer);
           });
       }
+    });
+}
+
+// All functions
+function goBack() {
+  inquirer
+    .prompt({
+      message: "Go back?",
+      name: "name",
+      type: "input",
+    })
+    .then(answer => {
+      init();
     });
 }
 
