@@ -1,8 +1,8 @@
-const app = require("./db/index.js");
+const app = require("./db/orm.js");
 const inquirer = require("inquirer");
 const logo = require("asciiart-logo");
 const config = require("./package.json");
-const { viewRole } = require("./db/index.js");
+const { viewRole } = require("./db/orm.js");
 
 function init() {
   console.log(logo(config).render());
@@ -51,15 +51,6 @@ function selectAction() {
         //   });
       } else if (answer.action === "VIEW_ROLES") {
         app.viewRole(answer);
-        // inquirer
-        //   .prompt({
-        //     message: "Provide a role",
-        //     name: "name",
-        //     type: "input",
-        //   })
-        //   .then(answer => {
-        //     app.viewRole(answer);
-        //   });
       } else if (answer.action === "SEARCH_EMPLOYEE") {
         inquirer
           .prompt({
