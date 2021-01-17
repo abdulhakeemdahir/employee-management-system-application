@@ -2,7 +2,9 @@
 const connection = require("./connection");
 const inquirer = require("inquirer");
 
+// Setting up custom ORM
 const app = {
+  // View All function
   viewAll: function () {
     return connection.query(
       `SELECT 
@@ -22,6 +24,7 @@ const app = {
           ON e.manager_id = e2.id`
     );
   },
+  //Get Role Function
   getRole: function () {
     return connection.query(
       `SELECT
@@ -29,12 +32,15 @@ const app = {
           FROM role`
     );
   },
+  // View Departments function
   viewDepartment: function () {
     return connection.query("SELECT * FROM department");
   },
+  //View Role function
   viewRole: function (answer) {
     return connection.query("SELECT * FROM role");
   },
+  //View Employee Function
   viewEmployee: function viewEmployee(answer) {
     connection
       .query("SELECT * FROM employee WHERE first_name = ?", answer.name)
@@ -42,6 +48,7 @@ const app = {
         console.table(resp);
       });
   },
+  // Add department function
   addDepartment: function (answer) {
     connection
       .query("INSERT INTO department SET ? ", {
@@ -51,6 +58,7 @@ const app = {
         console.log("Role Added");
       });
   },
+  //Add role function
   addRole: function (answer) {
     connection
       .query("INSERT INTO role SET ? ", {
@@ -62,6 +70,7 @@ const app = {
         console.log("Role Added");
       });
   },
+  // Add employee function
   addEmployee: function (answer) {
     connection
       .query("INSERT INTO employee SET ? ", {
@@ -74,6 +83,7 @@ const app = {
         console.log("Employee Added");
       });
   },
+  // Update role function
   updateRole: function (answer) {
     connection
       .query("UPDATE role SET ? WHERE ?", [
@@ -89,6 +99,7 @@ const app = {
         console.log("Role Updated");
       });
   },
+  //Update Department function
   updateDepartment: function (answer) {
     connection
       .query("UPDATE role SET ? WHERE ?", [
