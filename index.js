@@ -19,7 +19,7 @@ async function selectAction() {
         "ADD_ROLES",
         "ADD_EMPLOYEE",
         "UPDATE_ROLES",
-        "UPDATE_MANAGERS",
+        "UPDATE_DEPARTMENTS",
         "VIEW_EMPLOYEES_BY_MANAGER",
         "DELETE_DEPARTMENTS",
         "DELETE_ROLES",
@@ -193,30 +193,29 @@ async function selectAction() {
           });
         });
       } else if (answer.action === "UPDATE_DEPARTMENTS") {
-          app.viewDepartment().then(department => {
-            const departmentArr = department.map(department => {
-              return { name: department.name, value: department.id };
-            });
-            inquirer
-              .prompt([
-                {
-                  message: "Choose your department?",
-                  name: "departmentId",
-                  type: "list",
-                  choices: departmentArr,
-                },
-                {
-                  message: "Update department",
-                  name: "name",
-                  type: "input",
-                }
-              ])
-              .then(answer => {
-                console.log(answer);
-                app.updateDepartment(answer);
-                goBack();
-              });
+        app.viewDepartment().then(department => {
+          const departmentArr = department.map(department => {
+            return { name: department.name, value: department.id };
           });
+          inquirer
+            .prompt([
+              {
+                message: "Choose your department?",
+                name: "departmentId",
+                type: "list",
+                choices: departmentArr,
+              },
+              {
+                message: "Update department",
+                name: "name",
+                type: "input",
+              },
+            ])
+            .then(answer => {
+              console.log(answer);
+              app.updateDepartment(answer);
+              goBack();
+            });
         });
       }
     });
