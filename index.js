@@ -62,6 +62,7 @@ function selectAction() {
           })
           .then(answer => {
             app.viewEmployee(answer);
+            goBack();
           });
       } else if (answer.action === "ADD_DEPARTMENTS") {
         inquirer
@@ -73,16 +74,14 @@ function selectAction() {
             },
           ])
           .then(answer => {
-            console.log(answer);
             app.addDepartment(answer);
+            goBack();
           });
       } else if (answer.action === "ADD_ROLES") {
         app.getRole().then(roles => {
-          console.log(roles);
           const roleArr = roles.map(role => {
             return { name: role.title, value: role.id };
           });
-
           inquirer
             .prompt([
               {
@@ -103,16 +102,12 @@ function selectAction() {
               },
             ])
             .then(answer => {
-              console.log(answer);
               app.addRole(answer);
             });
         });
       } else if (answer.action === "ADD_EMPLOYEE") {
-        // const employeeInfo = {};
         app.getRole().then(roles => {
-          // console.log(roles);
           app.viewAll().then(managers => {
-            // console.log(managers);
             const roleArr = roles.map(role => {
               return { name: role.title, value: role.id };
             });
@@ -122,8 +117,6 @@ function selectAction() {
                 value: manager.id,
               };
             });
-            // console.log(roleArr);
-            // console.log(managerArr);
             inquirer
               .prompt([
                 {
@@ -150,40 +143,8 @@ function selectAction() {
                 },
               ])
               .then(answers => {
-                // console.log(answers);
                 app.addEmployee(answers);
               });
-            // .then(answer => {
-            //   employeeInfo.first_name = answer.firstName;
-            //   inquirer
-            //     .prompt({
-            //       message: "Provide the employees last name",
-            //       name: "lastName",
-            //       type: "input",
-            //     })
-            //     .then(answer => {
-            //       employeeInfo.last_name = answer.lastName;
-            //       console.log(employeeInfo);
-            //       app.getRole().then(res => {
-            //         const choiceArr = res;
-            //         let choices = [];
-            //         for (let i = 0; i < choiceArr.length; i++) {
-            //           choices.push(choiceArr[i].title);
-            //         }
-            //         inquirer
-            //           .prompt({
-            //             name: "roleId",
-            //             type: "list",
-            //             message: "Choose a role",
-            //             choices: choices,
-            //           })
-            //           .then(answer => {
-            //             employeeInfo.role_id = answer.roleId;
-            //             console.log(employeeInfo);
-            //           });
-            //       });
-            //     });
-            // });
           });
         });
       } else if (answer.action === "ADD_ROLES") {
@@ -208,7 +169,7 @@ function goBack() {
       name: "name",
       type: "input",
     })
-    .then(answer => {
+    .then(() => {
       init();
     });
 }
