@@ -4,6 +4,7 @@ const logo = require("asciiart-logo");
 const config = require("./package.json");
 const { viewRole } = require("./db/orm.js");
 
+// Select Action function
 async function selectAction() {
   inquirer
     .prompt({
@@ -29,21 +30,25 @@ async function selectAction() {
       ],
     })
     .then(answer => {
+      // View All
       if (answer.action === "VIEW_ALL") {
         app.viewAll().then(resp => {
           console.table(resp);
           goBack();
         });
+        //View Derpartments
       } else if (answer.action === "VIEW_DEPARTMENTS") {
         app.viewDepartment(answer).then(resp => {
           console.table(resp);
           goBack();
         });
+        // View Roles
       } else if (answer.action === "VIEW_ROLES") {
         app.viewRole(answer).then(resp => {
           console.table(resp);
           goBack();
         });
+        // Search employees
       } else if (answer.action === "SEARCH_EMPLOYEE") {
         inquirer
           .prompt({
@@ -55,6 +60,7 @@ async function selectAction() {
             app.viewEmployee(answer);
             goBack();
           });
+          // Add departments
       } else if (answer.action === "ADD_DEPARTMENTS") {
         inquirer
           .prompt([
@@ -68,6 +74,7 @@ async function selectAction() {
             app.addDepartment(answer);
             goBack();
           });
+          //Add roles
       } else if (answer.action === "ADD_ROLES") {
         app.getRole().then(roles => {
           const roleArr = roles.map(role => {
@@ -97,6 +104,7 @@ async function selectAction() {
               goBack();
             });
         });
+        // Add employee
       } else if (answer.action === "ADD_EMPLOYEE") {
         app.getRole().then(roles => {
           app.viewAll().then(managers => {
@@ -140,6 +148,7 @@ async function selectAction() {
               });
           });
         });
+        //Add roles
       } else if (answer.action === "ADD_ROLES") {
         inquirer
           .prompt({
@@ -151,6 +160,7 @@ async function selectAction() {
             app.addRole(answer);
             goBack();
           });
+          //Update roles
       } else if (answer.action === "UPDATE_ROLES") {
         app.getRole().then(roles => {
           const roleArr = roles.map(role => {
@@ -192,6 +202,7 @@ async function selectAction() {
               });
           });
         });
+        //Update Departments
       } else if (answer.action === "UPDATE_DEPARTMENTS") {
         app.viewDepartment().then(department => {
           const departmentArr = department.map(department => {
@@ -221,12 +232,12 @@ async function selectAction() {
     });
 }
 
-// All functions
+// Initialize functions
 function init() {
   console.log(logo(config).render());
   selectAction();
 }
-
+// Go back 
 function goBack() {
   inquirer
     .prompt({
@@ -239,4 +250,5 @@ function goBack() {
     });
 }
 
+//Initialize application
 init();
