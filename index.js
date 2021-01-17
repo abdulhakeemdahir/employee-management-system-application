@@ -72,15 +72,36 @@ function selectAction() {
             app.addDepartment(answer);
           });
       } else if (answer.action === "ADD_ROLES") {
-        inquirer
-          .prompt({
-            message: "Add a role",
-            name: "name",
-            type: "input",
-          })
-          .then(answer => {
-            app.addRole(answer);
+        app.getRole().then(roles => {
+          console.log(roles);
+          const roleArr = roles.map(role => {
+            return { name: role.title, value: role.id };
           });
+
+          inquirer
+            .prompt([
+              {
+                message: "Add role title",
+                name: "title",
+                type: "input",
+              },
+              {
+                message: "Add Salary",
+                name: "salary",
+                type: "input",
+              },
+              {
+                message: "Choose your department",
+                name: "departmentId",
+                type: "list",
+                choices: roleArr,
+              },
+            ])
+            .then(answer => {
+              console.log(answer);
+              app.addRole(answer);
+            });
+        });
       } else if (answer.action === "ADD_EMPLOYEE") {
         // const employeeInfo = {};
         app.getRole().then(roles => {

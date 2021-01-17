@@ -55,13 +55,13 @@ const app = {
   },
   addRole: function (answer) {
     connection
-      .query("INSERT INTO employee SET ? ", {
+      .query("INSERT INTO role SET ? ", {
         title: answer.title,
         salary: answer.salary,
         department_id: answer.departmentId,
       })
       .then(resp => {
-        console.log("Employee Added");
+        console.log("Role Added");
       });
   },
   addEmployee: function (answer) {
