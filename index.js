@@ -5,7 +5,7 @@ const config = require("./package.json");
 const { viewRole } = require("./db/orm.js");
 
 // Select Action function
-async function selectAction() {
+function selectAction() {
   inquirer
     .prompt({
       message: "What would you like to do?",
@@ -21,12 +21,13 @@ async function selectAction() {
         "ADD_EMPLOYEE",
         "UPDATE_ROLES",
         "UPDATE_DEPARTMENTS",
-        "VIEW_EMPLOYEES_BY_MANAGER",
-        "DELETE_DEPARTMENTS",
-        "DELETE_ROLES",
-        "DELETE_EMPLOYEES",
-        "VIEW_TOTAL_BUDGET",
-        "QUIT",
+        //Will add bonus features in the future
+        // "VIEW_EMPLOYEES_BY_MANAGER",
+        // "DELETE_DEPARTMENTS",
+        // "DELETE_ROLES",
+        // "DELETE_EMPLOYEES",
+        // "VIEW_TOTAL_BUDGET",
+        // "QUIT",
       ],
     })
     .then(answer => {
@@ -57,10 +58,12 @@ async function selectAction() {
             type: "input",
           })
           .then(answer => {
-            app.viewEmployee(answer);
-            goBack();
+            app.viewEmployee(answer).then(resp => {
+              console.table(resp);
+              goBack();
+            });
           });
-          // Add departments
+        // Add departments
       } else if (answer.action === "ADD_DEPARTMENTS") {
         inquirer
           .prompt([
@@ -74,7 +77,7 @@ async function selectAction() {
             app.addDepartment(answer);
             goBack();
           });
-          //Add roles
+        //Add roles
       } else if (answer.action === "ADD_ROLES") {
         app.getRole().then(roles => {
           const roleArr = roles.map(role => {
@@ -160,7 +163,7 @@ async function selectAction() {
             app.addRole(answer);
             goBack();
           });
-          //Update roles
+        //Update roles
       } else if (answer.action === "UPDATE_ROLES") {
         app.getRole().then(roles => {
           const roleArr = roles.map(role => {
@@ -237,7 +240,7 @@ function init() {
   console.log(logo(config).render());
   selectAction();
 }
-// Go back 
+// Go back
 function goBack() {
   inquirer
     .prompt({

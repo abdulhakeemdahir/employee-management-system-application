@@ -42,11 +42,10 @@ const app = {
   },
   //View Employee Function
   viewEmployee: function viewEmployee(answer) {
-    connection
-      .query("SELECT * FROM employee WHERE first_name = ?", answer.name)
-      .then(resp => {
-        console.table(resp);
-      });
+    return connection.query(
+      "SELECT * FROM employee WHERE first_name = ?",
+      answer.name
+    );
   },
   // Add department function
   addDepartment: function (answer) {
